@@ -1,0 +1,264 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: itrun 1.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: itrun/settings.py:76
+msgid "Русский"
+msgstr "Russian"
+
+#: itrun/settings.py:77
+msgid "Кыргызча"
+msgstr "Kyrgyz"
+
+#: itrun/settings.py:78
+msgid "English"
+msgstr "English"
+
+#: main/forms.py:18
+msgid "Ваше имя (необязательно)"
+msgstr "Your name (optional)"
+
+#: main/forms.py:22
+msgid "Ваш номер телефона"
+msgstr "Your phone number"
+
+#: main/templates/main/index.html:4
+msgid "IT Курсы"
+msgstr "IT Courses"
+
+#: main/templates/main/index.html:13 main/templates/main/index.html:18
+msgid "Набор открыт"
+msgstr "Enrollment Open"
+
+#: main/templates/main/index.html:14 main/templates/main/index.html:19
+msgid "Пробный урок каждую субботу 11:00"
+msgstr "Trial lesson every Saturday at 11:00"
+
+#: main/templates/main/index.html:15 main/templates/main/index.html:20
+msgid "200+ выпускников"
+msgstr "200+ graduates"
+
+#: main/templates/main/index.html:16 main/templates/main/index.html:21
+msgid "Рассрочка доступна"
+msgstr "Installments available"
+
+#: main/templates/main/index.html:35
+msgid "Набор открыт · Старт уже в эту субботу"
+msgstr "Enrollment open · Starts this Saturday"
+
+#: main/templates/main/index.html:39
+msgid "Стань"
+msgstr "Become"
+
+#: main/templates/main/index.html:40
+msgid "IT-специалистом"
+msgstr "an IT specialist"
+
+#: main/templates/main/index.html:41
+msgid "за 7–8 месяцев с нуля"
+msgstr "in 7–8 months from scratch"
+
+#: main/templates/main/index.html:45
+msgid "Практика, реальные проекты в портфолио и личный ментор. Никакой воды — только то, что нужно работодателям."
+msgstr "Practice, real projects in your portfolio, and a personal mentor. No fluff — only what employers need."
+
+#: main/templates/main/index.html:49
+msgid "Выбрать курс"
+msgstr "Choose course"
+
+#: main/templates/main/index.html:50 main/templates/main/index.html:183
+msgid "Как проходит обучение"
+msgstr "How the training works"
+
+#: main/templates/main/index.html:56
+msgid "выпускников"
+msgstr "graduates"
+
+#: main/templates/main/index.html:60
+msgid "оценка курса"
+msgstr "course rating"
+
+#: main/templates/main/index.html:64
+msgid "проектов в портфолио"
+msgstr "projects in portfolio"
+
+#: main/templates/main/index.html:81
+msgid "программы"
+msgstr "programs"
+
+#: main/templates/main/index.html:82
+msgid "Выберите направление"
+msgstr "Choose a track"
+
+#: main/templates/main/index.html:83
+msgid "Современные программы с практикой и реальными проектами с первого дня."
+msgstr "Modern programs with hands-on practice and real projects from day one."
+
+#: main/templates/main/index.html:90
+msgid "Назад"
+msgstr "Back"
+
+#: main/templates/main/index.html:101 main/templates/main/index.html:138
+#: main/templates/main/index.html:164
+msgid "длительность"
+msgstr "duration"
+
+#: main/templates/main/index.html:105 main/templates/main/index.html:142
+#: main/templates/main/index.html:165
+msgid "проекты"
+msgstr "projects"
+
+#: main/templates/main/index.html:106 main/templates/main/index.html:143
+#: main/templates/main/index.html:165
+msgid "шт."
+msgstr "pcs."
+
+#: main/templates/main/index.html:109 main/templates/main/index.html:146
+#: main/templates/main/index.html:166
+msgid "уровень"
+msgstr "level"
+
+#: main/templates/main/index.html:117 main/templates/main/index.html:153
+msgid "Записаться на курс"
+msgstr "Enroll in course"
+
+#: main/templates/main/index.html:121
+msgid "Вперёд"
+msgstr "Next"
+
+#: main/templates/main/index.html:159 main/templates/main/index.html:166
+msgid "с нуля"
+msgstr "from scratch"
+
+#: main/templates/main/index.html:164
+msgid "мес."
+msgstr "mo."
+
+#: main/templates/main/index.html:182
+msgid "процесс"
+msgstr "process"
+
+#: main/templates/main/index.html:184
+msgid "Сделано так, чтобы вы реально начали писать код и не бросили на середине."
+msgstr "Designed so you actually start coding and don’t quit halfway."
+
+#: main/templates/main/index.html:191
+msgid "Уроки + практика"
+msgstr "Lessons + practice"
+
+#: main/templates/main/index.html:192
+msgid "Короткие понятные темы и сразу задачи на закрепление. Никакой теории впустую."
+msgstr "Short clear topics and immediate tasks to reinforce learning. No wasted theory."
+
+#: main/templates/main/index.html:197
+msgid "Ментор и ревью"
+msgstr "Mentor and code review"
+
+#: main/templates/main/index.html:198
+msgid "Проверяем код, подсказываем лучшие подходы, архитектуру и паттерны."
+msgstr "We review code, suggest best practices, architecture, and patterns."
+
+#: main/templates/main/index.html:203
+msgid "Проекты в портфолио"
+msgstr "Projects in portfolio"
+
+#: main/templates/main/index.html:204
+msgid "Делаете реальные проекты: от лендинга до полноценного CRM и API."
+msgstr "Work on real projects: from landing pages to full CRM and API."
+
+#: main/templates/main/index.html:209
+msgid "Подготовка к работе"
+msgstr "Job preparation"
+
+#: main/templates/main/index.html:210
+msgid "Резюме, LinkedIn, тестовые задания, мок-собесы и план поиска первой работы."
+msgstr "Resume, LinkedIn, test tasks, mock interviews, and first job plan."
+
+#: main/templates/main/index.html:216
+msgid "формат"
+msgstr "format"
+
+#: main/templates/main/index.html:217
+msgid "Офлайн"
+msgstr "Offline"
+
+#: main/templates/main/index.html:220
+msgid "группа"
+msgstr "group"
+
+#: main/templates/main/index.html:221
+msgid "до 20 чел."
+msgstr "up to 20 ppl"
+
+#: main/templates/main/index.html:224
+msgid "уроки"
+msgstr "lessons"
+
+#: main/templates/main/index.html:225
+msgid "3×/нед."
+msgstr "3×/week"
+
+#: main/templates/main/index.html:228
+msgid "поддержка"
+msgstr "support"
+
+#: main/templates/main/index.html:229
+msgid "Чат 24/7"
+msgstr "Chat 24/7"
+
+#: main/templates/main/index.html:242
+msgid "учебный план"
+msgstr "curriculum"
+
+#: main/templates/main/index.html:243
+msgid "Первые 2 недели"
+msgstr "First 2 weeks"
+
+#: main/templates/main/index.html:244
+msgid "За первые 14 дней вы уже напишете реальный проект и поймёте, как всё работает."
+msgstr "Within 14 days you will complete a real project and understand how everything works."
+
+#: main/templates/main/index.html:248
+msgid "НЕДЕЛЯ"
+msgstr "WEEK"
+
+#: main/templates/main/index.html:250
+msgid "Вёрстка + адаптив"
+msgstr "Layout + Responsive"
+
+#: main/templates/main/index.html:251
+msgid "JavaScript основы"
+msgstr "JavaScript basics"
+
+#: main/templates/main/index.html:252
+msgid "Git + командная работа"
+msgstr "Git + team work"
+
+#: main/templates/main/index.html:253
+msgid "Мини-проект: лендинг"
+msgstr "Mini-project: landing page"
+
+#: main/templates/main/index.html:256
+msgid "БОНУС"
+msgstr "BONUS"
+
+#: main/templates/main/index.html:256
+msgid "Шаблоны резюме и чек-лист собеседований"
+msgstr "Resume templates and interview checklist"
+
+#: main/templates/main/index.html:270
+msgid "отзывы"
+msgstr "reviews"
+
+#: main/templates/main/index.html:271
+msgid "Говорят выпускники"
+msgstr "Alumni say"
+
+#: main/templates/main/index.html:272
+msgid "Коротко и по делу — что понравилось и что получили."
+msgstr "Brief and to the point — what they liked and what they gained."

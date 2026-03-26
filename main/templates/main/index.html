@@ -1,0 +1,476 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}IT Run Academy — {% trans "IT Курсы" %}{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════
+     TICKER — бегущая строка с анонсами
+     ═══════════════════════════════════════════════ -->
+<div class="ticker-wrap" style="margin-top: 72px;">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">🎓 {% trans "Набор открыт" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">{% trans "Пробный урок каждую субботу 11:00" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">{% trans "200+ выпускников" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">{% trans "Рассрочка доступна" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">Frontend · Backend · UI/UX <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🎓 {% trans "Набор открыт" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">{% trans "Пробный урок каждую субботу 11:00" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">{% trans "200+ выпускников" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">{% trans "Рассрочка доступна" %} <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">Frontend · Backend · UI/UX <span class="ticker-sep">•</span></span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     HERO — главный экран
+     ═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="badge">
+    <span class="badge-dot"></span>
+    {% trans "Набор открыт · Старт уже в эту субботу" %}
+  </div>
+
+  <h1>
+    {% trans "Стань" %}<br>
+    <span class="line2">{% trans "IT-специалистом" %}</span>
+    <span class="line3">{% trans "за 7–8 месяцев с нуля" %}</span>
+  </h1>
+
+  <p class="hero-desc">
+    {% trans "Практика, реальные проекты в портфолио и личный ментор. Никакой воды — только то, что нужно работодателям." %}
+  </p>
+
+  <div class="hero-actions">
+    <a href="#programs" class="btn-primary">{% trans "Выбрать курс" %} →</a>
+    <a href="#format" class="btn-ghost">{% trans "Как проходит обучение" %}</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">{% trans "выпускников" %}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4.9/5</div>
+      <div class="stat-label">{% trans "оценка курса" %}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">{% trans "проектов в портфолио" %}</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     COURSES — карточки курсов
+     Если курсов > 3 → слайдер (класс courses-slider),
+     если ≤ 3 → обычная сетка (courses-grid)
+     ═══════════════════════════════════════════════ -->
+<section id="programs">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">{% trans "программы" %}</div>
+      <h2 class="section-title">{% trans "Выберите направление" %}</h2>
+      <p class="section-subtitle">{% trans "Современные программы с практикой и реальными проектами с первого дня." %}</p>
+    </div>
+
+    {% if courses_count > 3 %}
+    <!-- СЛАЙДЕР: показывается когда курсов больше 3 -->
+    <div class="courses-slider-wrapper">
+      <!-- Кнопки навигации -->
+      <button class="slider-arrow slider-prev" onclick="slideCourses(-1)" aria-label="{% trans 'Назад' %}">‹</button>
+      <div class="courses-slider" id="coursesSlider">
+        {% for course in courses %}
+        <div class="course-card {{ course.category }} reveal" data-course-id="{{ course.id }}">
+          <div class="course-arrow">→</div>
+          <span class="course-badge">{{ course.badge }}</span>
+          <span class="course-icon">{{ course.icon }}</span>
+          <h3>{{ course.title }}</h3>
+          <p>{{ course.description }}</p>
+          <div class="course-meta">
+            <div class="meta-item">
+              <span class="meta-label">{% trans "длительность" %}</span>
+              <span class="meta-value">{{ course.duration }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">{% trans "проекты" %}</span>
+              <span class="meta-value">{{ course.projects_count }} {% trans "шт." %}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">{% trans "уровень" %}</span>
+              <span class="meta-value">{{ course.level }}</span>
+            </div>
+          </div>
+          <!-- Кнопка «Записаться» прямо в карточке курса -->
+          <a href="#cta"
+             class="btn-course-enroll"
+             onclick="selectCourseAndScroll({{ course.id }}, '{{ course.title|escapejs }}')"
+          >{% trans "Записаться на курс" %} →</a>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="slider-arrow slider-next" onclick="slideCourses(1)" aria-label="{% trans 'Вперёд' %}">›</button>
+    </div>
+    <!-- Точки-индикаторы слайдера -->
+    <div class="slider-dots" id="sliderDots"></div>
+
+    {% else %}
+    <!-- GRID: обычная сетка для ≤ 3 курсов -->
+    <div class="courses-grid">
+      {% for course in courses %}
+      <div class="course-card {{ course.category }} reveal" data-course-id="{{ course.id }}">
+        <div class="course-arrow">→</div>
+        <span class="course-badge">{{ course.badge }}</span>
+        <span class="course-icon">{{ course.icon }}</span>
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description }}</p>
+        <div class="course-meta">
+          <div class="meta-item">
+            <span class="meta-label">{% trans "длительность" %}</span>
+            <span class="meta-value">{{ course.duration }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">{% trans "проекты" %}</span>
+            <span class="meta-value">{{ course.projects_count }} {% trans "шт." %}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">{% trans "уровень" %}</span>
+            <span class="meta-value">{{ course.level }}</span>
+          </div>
+        </div>
+        <a href="#cta"
+           class="btn-course-enroll"
+           onclick="selectCourseAndScroll({{ course.id }}, '{{ course.title|escapejs }}')"
+        >{% trans "Записаться на курс" %} →</a>
+      </div>
+      {% empty %}
+      <!-- Фолбэк-карточки если в базе нет курсов -->
+      <div class="course-card frontend reveal">
+        <div class="course-arrow">→</div>
+        <span class="course-badge">JS / {% trans "с нуля" %}</span>
+        <span class="course-icon">⚡</span>
+        <h3>Frontend Developer</h3>
+        <p>HTML/CSS, Tailwind, JavaScript, React, Redux/RTK Query.</p>
+        <div class="course-meta">
+          <div class="meta-item"><span class="meta-label">{% trans "длительность" %}</span><span class="meta-value">7 {% trans "мес." %}</span></div>
+          <div class="meta-item"><span class="meta-label">{% trans "проекты" %}</span><span class="meta-value">8 {% trans "шт." %}</span></div>
+          <div class="meta-item"><span class="meta-label">{% trans "уровень" %}</span><span class="meta-value">{% trans "с нуля" %}</span></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FORMAT — как проходит обучение
+     ═══════════════════════════════════════════════ -->
+<section id="format">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">{% trans "процесс" %}</div>
+      <h2 class="section-title">{% trans "Как проходит обучение" %}</h2>
+      <p class="section-subtitle">{% trans "Сделано так, чтобы вы реально начали писать код и не бросили на середине." %}</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <span class="process-num">01</span>
+        <span class="process-icon">📚</span>
+        <h3>{% trans "Уроки + практика" %}</h3>
+        <p>{% trans "Короткие понятные темы и сразу задачи на закрепление. Никакой теории впустую." %}</p>
+      </div>
+      <div class="process-card reveal">
+        <span class="process-num">02</span>
+        <span class="process-icon">🔍</span>
+        <h3>{% trans "Ментор и ревью" %}</h3>
+        <p>{% trans "Проверяем код, подсказываем лучшие подходы, архитектуру и паттерны." %}</p>
+      </div>
+      <div class="process-card reveal">
+        <span class="process-num">03</span>
+        <span class="process-icon">🚀</span>
+        <h3>{% trans "Проекты в портфолио" %}</h3>
+        <p>{% trans "Делаете реальные проекты: от лендинга до полноценного CRM и API." %}</p>
+      </div>
+      <div class="process-card reveal">
+        <span class="process-num">04</span>
+        <span class="process-icon">💼</span>
+        <h3>{% trans "Подготовка к работе" %}</h3>
+        <p>{% trans "Резюме, LinkedIn, тестовые задания, мок-собесы и план поиска первой работы." %}</p>
+      </div>
+    </div>
+
+    <div class="format-grid reveal">
+      <div class="format-item">
+        <div class="fi-label">{% trans "формат" %}</div>
+        <div class="fi-value">{% trans "Офлайн" %}</div>
+      </div>
+      <div class="format-item">
+        <div class="fi-label">{% trans "группа" %}</div>
+        <div class="fi-value">{% trans "до 20 чел." %}</div>
+      </div>
+      <div class="format-item">
+        <div class="fi-label">{% trans "уроки" %}</div>
+        <div class="fi-value">{% trans "3×/нед." %}</div>
+      </div>
+      <div class="format-item">
+        <div class="fi-label">{% trans "поддержка" %}</div>
+        <div class="fi-value">{% trans "Чат 24/7" %}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PLAN — первые 2 недели
+     ═══════════════════════════════════════════════ -->
+<section class="plan-section">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; align-items: center;">
+      <div class="reveal">
+        <div class="section-tag">{% trans "учебный план" %}</div>
+        <h2 class="section-title">{% trans "Первые 2 недели" %}</h2>
+        <p class="section-subtitle" style="margin-top: 1rem;">{% trans "За первые 14 дней вы уже напишете реальный проект и поймёте, как всё работает." %}</p>
+      </div>
+      <div class="reveal">
+        <div class="plan-card">
+          <h3>// {% trans "НЕДЕЛЯ" %} 1–2</h3>
+          <ul class="plan-items">
+            <li><span class="plan-check">✓</span> {% trans "Вёрстка + адаптив" %}</li>
+            <li><span class="plan-check">✓</span> {% trans "JavaScript основы" %}</li>
+            <li><span class="plan-check">✓</span> {% trans "Git + командная работа" %}</li>
+            <li><span class="plan-check">✓</span> {% trans "Мини-проект: лендинг" %}</li>
+          </ul>
+          <div class="plan-bonus">
+            <strong>🎁 {% trans "БОНУС" %} —</strong> {% trans "Шаблоны резюме и чек-лист собеседований" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     REVIEWS — отзывы выпускников
+     ═══════════════════════════════════════════════ -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">{% trans "отзывы" %}</div>
+      <h2 class="section-title">{% trans "Говорят выпускники" %}</h2>
+      <p class="section-subtitle">{% trans "Коротко и по делу — что понравилось и что получили." %}</p>
+    </div>
+
+    <div class="reviews-grid">
+      {% for review in reviews %}
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">{{ review.text }}</p>
+        <div class="review-author">
+          <div class="avatar {{ review.avatar_color }}">{{ review.avatar_letter }}</div>
+          <div>
+            <!-- Звёзды рейтинга -->
+            <div class="stars">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+            <div class="author-name">{{ review.author_name }}</div>
+            <div class="author-course">{{ review.course_label }}</div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <!-- Дефолтные отзывы если база пуста -->
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">{% trans "Очень много практики. После 2 месяцев уже собрала свой первый проект и поняла как работать с API." %}</p>
+        <div class="review-author">
+          <div class="avatar a">А</div>
+          <div>
+            <div class="stars">★★★★★</div>
+            <div class="author-name">{% trans "Адина" %}</div>
+            <div class="author-course">Frontend Developer</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">{% trans "Понравилось ревью кода и дисциплина. Появилась уверенность и чёткая структура в голове." %}</p>
+        <div class="review-author">
+          <div class="avatar b">Д</div>
+          <div>
+            <div class="stars">★★★★★</div>
+            <div class="author-name">{% trans "Данияр" %}</div>
+            <div class="author-course">Backend Python</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <p class="review-text">{% trans "Фишка курса — дизайн плюс практика в одном месте. На выходе были кейсы и полное понимание." %}</p>
+        <div class="review-author">
+          <div class="avatar c">М</div>
+          <div>
+            <div class="stars">★★★★★</div>
+            <div class="author-name">{% trans "Мээрим" %}</div>
+            <div class="author-course">UI/UX {% trans "Дизайн" %}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FAQ — частые вопросы
+     ═══════════════════════════════════════════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">{% trans "вопросы" %}</div>
+      <h2 class="section-title">{% trans "Частые вопросы" %}</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          {% trans "Нужно ли знать английский?" %}
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">{% trans "Базовый уровень полезен, но стартовать можно и без него — мы дадим словарь терминов и практику чтения документации." %}</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          {% trans "Сколько времени нужно в неделю?" %}
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">{% trans "В среднем 6–10 часов. Если хотите быстрее — дадим план для ускоренного режима." %}</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          {% trans "Будут ли проекты в портфолио?" %}
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">{% trans "Да. Вы сделаете проекты от простых лендингов до полноценного приложения с авторизацией и API." %}</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          {% trans "Можно ли оплатить частями?" %}
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">{% trans "Да, доступны рассрочка и помесячная оплата. Уточните детали у нашего менеджера." %}</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          {% trans "Помогаете ли с трудоустройством?" %}
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">{% trans "Да. Мы готовим резюме, LinkedIn-профиль, проводим мок-собеседования и помогаем с поиском первой работы." %}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA — форма заявки
+     Включает: выбор курса через кнопки/слайдер,
+     поле имени, поле телефона, кнопка отправки
+     ═══════════════════════════════════════════════ -->
+<section class="cta-section" id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <div class="badge" style="margin: 0 auto 1.5rem;">
+      <span class="badge-dot"></span>
+      {% trans "Бесплатная консультация" %}
+    </div>
+    <h2 class="reveal">{% trans "Начните свой путь" %}<br>{% trans "в IT сегодня" %}</h2>
+    <p class="reveal">{% trans "Подберём курс под ваш уровень и цель, составим план на первые 2 недели." %}</p>
+
+    <!-- ── Выбор курса (показывается если есть курсы в базе) ── -->
+    {% if courses %}
+    <div class="course-selector reveal" id="courseSelector">
+      <p class="course-selector-label">{% trans "Какой курс вас интересует?" %}</p>
+
+      {% if courses_count > 3 %}
+      <!-- СЛАЙДЕР выбора курса (для мобильных и > 3 курсов) -->
+      <div class="course-select-slider-wrapper">
+        <button class="cs-arrow cs-prev" onclick="slideSelectCourses(-1)" aria-label="prev">‹</button>
+        <div class="course-select-slider" id="courseSelectSlider">
+          <!-- Кнопка «Любой курс» -->
+          <button type="button"
+                  class="course-select-btn active"
+                  data-id=""
+                  onclick="pickCourse(this, '', '{% trans "Любой курс" %}')">
+            🎯 {% trans "Любой курс" %}
+          </button>
+          {% for course in courses %}
+          <button type="button"
+                  class="course-select-btn {{ course.category }}"
+                  data-id="{{ course.id }}"
+                  onclick="pickCourse(this, '{{ course.id }}', '{{ course.title|escapejs }}')">
+            {{ course.icon }} {{ course.title }}
+          </button>
+          {% endfor %}
+        </div>
+        <button class="cs-arrow cs-next" onclick="slideSelectCourses(1)" aria-label="next">›</button>
+      </div>
+
+      {% else %}
+      <!-- КНОПКИ: простой выбор для ≤ 3 курсов -->
+      <div class="course-select-btns">
+        <button type="button"
+                class="course-select-btn active"
+                data-id=""
+                onclick="pickCourse(this, '', '{% trans "Любой курс" %}')">
+          🎯 {% trans "Любой курс" %}
+        </button>
+        {% for course in courses %}
+        <button type="button"
+                class="course-select-btn {{ course.category }}"
+                data-id="{{ course.id }}"
+                onclick="pickCourse(this, '{{ course.id }}', '{{ course.title|escapejs }}')">
+          {{ course.icon }} {{ course.title }}
+        </button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Отображение выбранного курса -->
+      <p class="course-selected-label" id="courseSelectedLabel" style="display:none;">
+        {% trans "Выбран:" %} <strong id="courseSelectedName"></strong>
+      </p>
+    </div>
+    {% endif %}
+
+    <!-- ── Форма отправки заявки ── -->
+    <form method="post" action="{% url 'index' %}#cta" class="cta-form reveal">
+      {% csrf_token %}
+      <!-- Скрытое поле с ID выбранного курса -->
+      {{ form.course }}
+      {{ form.name }}
+      {{ form.phone }}
+      <button type="submit" class="btn-primary">{% trans "Записаться" %} →</button>
+    </form>
+
+    <p style="color: var(--muted); font-size: 0.8rem; margin-top: 1rem; font-family: 'Space Mono', monospace;">
+      {% trans "Или приходите на пробный урок в субботу в 11:00" %}
+    </p>
+  </div>
+</section>
+
+<!-- Данные для JS слайдера курсов (передаём из Django) -->
+<script>
+  // Количество курсов для инициализации слайдера
+  window.COURSES_COUNT = {{ courses_count }};
+</script>
+
+{% endblock %}

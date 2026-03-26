@@ -1,0 +1,117 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}IT Run Academy — IT Курсы{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- ═══════════════════════════════════════════════
+     NAV — навигация + переключатель языка
+     ═══════════════════════════════════════════════ -->
+<nav>
+  <a href="{% url 'index' %}" class="logo">
+    <img src="https://itrun.kg/static/imgs/15541933_150_q55.avif" alt="IT Run Academy" style="height: 36px; width: auto; object-fit: contain;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="{% url 'index' %}#programs">{% trans "Курсы" %}</a></li>
+    <li><a href="{% url 'index' %}#format">{% trans "Формат" %}</a></li>
+    <li><a href="{% url 'index' %}#reviews">{% trans "Отзывы" %}</a></li>
+    <li><a href="{% url 'index' %}#faq">FAQ</a></li>
+    <li><a href="{% url 'index' %}#cta" class="nav-cta">{% trans "Записаться" %}</a></li>
+  </ul>
+
+  <!-- Переключатель языка (десктоп) -->
+<div class="lang-switcher">
+  {% get_current_language as CURRENT_LANG %}
+  {% get_available_languages as LANGUAGES %}
+  {% for lang_code, lang_name in LANGUAGES %}
+    <form action="{% url 'set_language' %}" method="post" class="lang-form" style="display:inline;">
+      {% csrf_token %}
+      <input type="hidden" name="language" value="{{ lang_code }}">
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <button type="submit"
+              class="lang-btn {% if lang_code == CURRENT_LANG %}active{% endif %}"
+              title="{{ lang_name }}">
+        {% if lang_code == 'ru' %}RU
+        {% elif lang_code == 'ky' %}KG
+        {% else %}EN{% endif %}
+      </button>
+    </form>
+  {% endfor %}
+</div>
+
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Мобильное меню -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="{% url 'index' %}#programs" onclick="closeMenu()">{% trans "Курсы" %}</a>
+  <a href="{% url 'index' %}#format" onclick="closeMenu()">{% trans "Формат" %}</a>
+  <a href="{% url 'index' %}#reviews" onclick="closeMenu()">{% trans "Отзывы" %}</a>
+  <a href="{% url 'index' %}#faq" onclick="closeMenu()">FAQ</a>
+  <a href="{% url 'index' %}#cta" onclick="closeMenu()" style="color: var(--accent); border: none;">→ {% trans "Записаться бесплатно" %}</a>
+
+  <!-- Переключатель языка в мобильном меню -->
+  <div class="mobile-lang-switcher">
+    {% get_current_language as CURRENT_LANG %}
+    {% get_available_languages as LANGUAGES %}
+    {% for lang_code, lang_name in LANGUAGES %}
+    <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <input type="hidden" name="language" value="{{ lang_code }}">
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit"
+              class="lang-btn {% if lang_code == CURRENT_LANG %}active{% endif %}">
+        {% if lang_code == 'ru' %}RU
+        {% elif lang_code == 'ky' %}KG
+        {% else %}EN{% endif %}
+      </button>
+    </form>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Флеш-сообщения (успех/ошибка формы) -->
+{% if messages %}
+<div style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:200;min-width:320px;">
+  {% for message in messages %}
+  <div style="background:#fff;border:1px solid rgba(255,79,2,0.3);color:#FF4F02;padding:0.875rem 1.5rem;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.85rem;box-shadow:0 4px 20px rgba(255,79,2,0.15);margin-bottom:0.5rem;" class="js-msg">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <a href="{% url 'index' %}" class="logo">
+      <img src="https://itrun.kg/static/imgs/15541933_150_q55.avif" alt="IT Run Academy" style="height: 32px; width: auto; object-fit: contain;">
+    </a>
+    <ul class="footer-links">
+      <li><a href="{% url 'index' %}#programs">{% trans "Курсы" %}</a></li>
+      <li><a href="{% url 'index' %}#format">{% trans "Формат" %}</a></li>
+      <li><a href="{% url 'index' %}#reviews">{% trans "Отзывы" %}</a></li>
+      <li><a href="{% url 'index' %}#faq">FAQ</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 IT Run Academy · {% trans "г. Бишкек" %}</span>
+  </div>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
