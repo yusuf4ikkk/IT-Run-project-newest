@@ -16,8 +16,8 @@ msgstr "Кыргызча"
 msgid "English"
 msgstr "English"
 
-msgid "Ваше имя (необязательно)"
-msgstr "Ваше имя (необязательно)"
+msgid "Ваше имя"
+msgstr "Ваше имя"
 
 msgid "Ваш номер телефона"
 msgstr "Ваш номер телефона"
