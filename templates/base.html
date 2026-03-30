@@ -25,28 +25,29 @@
     <li><a href="{% url 'index' %}#format">{% trans "Формат" %}</a></li>
     <li><a href="{% url 'index' %}#reviews">{% trans "Отзывы" %}</a></li>
     <li><a href="{% url 'index' %}#faq">FAQ</a></li>
+    <div class="lang-switcher">
+      {% get_current_language as CURRENT_LANG %}
+      {% get_available_languages as LANGUAGES %}
+      {% for lang_code, lang_name in LANGUAGES %}
+        <form action="{% url 'set_language' %}" method="post" class="lang-form" style="display:inline;">
+          {% csrf_token %}
+          <input type="hidden" name="language" value="{{ lang_code }}">
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <button type="submit"
+                  class="lang-btn {% if lang_code == CURRENT_LANG %}active{% endif %}"
+                  title="{{ lang_name }}">
+            {% if lang_code == 'ru' %}RU
+            {% elif lang_code == 'ky' %}KG
+            {% else %}EN{% endif %}
+          </button>
+        </form>
+      {% endfor %}
+    </div>
     <li><a href="{% url 'index' %}#cta" class="nav-cta">{% trans "Записаться" %}</a></li>
   </ul>
 
   <!-- Переключатель языка (десктоп) -->
-<div class="lang-switcher">
-  {% get_current_language as CURRENT_LANG %}
-  {% get_available_languages as LANGUAGES %}
-  {% for lang_code, lang_name in LANGUAGES %}
-    <form action="{% url 'set_language' %}" method="post" class="lang-form" style="display:inline;">
-      {% csrf_token %}
-      <input type="hidden" name="language" value="{{ lang_code }}">
-      <input type="hidden" name="next" value="{{ request.get_full_path }}">
-      <button type="submit"
-              class="lang-btn {% if lang_code == CURRENT_LANG %}active{% endif %}"
-              title="{{ lang_name }}">
-        {% if lang_code == 'ru' %}RU
-        {% elif lang_code == 'ky' %}KG
-        {% else %}EN{% endif %}
-      </button>
-    </form>
-  {% endfor %}
-</div>
+
 
   <div class="hamburger" onclick="toggleMenu()" id="hamburger">
     <span></span><span></span><span></span>

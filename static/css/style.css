@@ -878,7 +878,7 @@ section { position: relative; z-index: 1; }
 .cta-form {
   display: flex;
   gap: 0.75rem;
-  max-width: 480px;
+  max-width: 500px;
   margin: 0 auto;
   flex-wrap: wrap;
 }
